@@ -134,7 +134,9 @@ Copy rules: headlines ≤ 6 words. One idea per scene. No paragraph text ever. C
 
 Don't debug a failed render before confirming preflight passed.
 
-Full scaffold, code patterns, spring presets, and font loading in `references/remotion-patterns.md`. Motion technique recipes in `references/motion-library.md`. Read both before writing components. Non-negotiables:
+**Scaffold from `templates/` — don't retype boilerplate.** The skill ships battle-tested files: copy `templates/package.json`, `tsconfig.json`, `remotion.config.ts` to the project root; `templates/index.ts`, `Root.tsx` to `src/`; `templates/theme.ts` to `src/`; `templates/lib.tsx` to `src/scenes/`. Then: fill every `#TODO_*` token in theme.ts from brand.json (grep for TODO — none may survive), swap the font import if the brand font isn't Inter, and set `durationInFrames` in Root.tsx to the computed net total. Only scene components and Teaser.tsx are written fresh per project — they're the creative part; the rest is plumbing.
+
+Full code patterns, spring presets, and font loading in `references/remotion-patterns.md`. Motion technique recipes in `references/motion-library.md`. Read both before writing components. Non-negotiables:
 
 - **Load fonts with `@remotion/google-fonts`** (`loadFont()`), never a bare `fontFamily` string — unloaded fonts silently render as system serif in the output file.
 - **Frame-based animation only** — `useCurrentFrame()` + `spring()`/`interpolate()`. CSS `transition`/`animation` and `setTimeout` produce broken or nondeterministic renders.
