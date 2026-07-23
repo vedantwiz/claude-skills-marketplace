@@ -93,5 +93,18 @@ const shown = Math.min(len, Math.floor((frame - start) * charsPerFrame));
 ### CutOnAction
 **Job:** hard cut lands while something is mid-motion — momentum carries across the cut. Prefer hard cuts at reel energy; save fades for the CTA only.
 
+## Secondary motion (promoted rule — upbeat & reel)
+
+Entrances alone read as slideware. Once an element has LANDED it must keep living:
+
+- **Wobble:** landed chips/cards `rotate(base + Math.sin((frame-delay)/11) * 2 * p)` + small y-bob
+- **Breathe:** logos/heroes `scale *= 1 + 0.012 * Math.sin(frame/10)`
+- **Bob:** panels/bars `translateY(Math.sin(frame/18) * 4)`
+- **Press-dip:** buttons dip at an action beat `interpolate(frame, [t, t+4, t+8], [1, 0.93, 1])` — implies a click
+- **Late tick:** one counter increments "+1" with a scale pop late in a UI scene — the product looks live
+- **Second wave:** a second DotBurst/BurstRing 30-40 frames after the first on reveal/CTA scenes
+
+Budget: 1-2 secondary motions per scene; every UI scene needs at least one.
+
 ## Banned (all energies)
 Letter-by-letter bounce, typewriter cursors on headlines (TypeOn is for URLs/code only), camera shake, scan lines, gloss/shimmer sweeps, glow-on-everything, rotation entrances (>8°), more than one font.
