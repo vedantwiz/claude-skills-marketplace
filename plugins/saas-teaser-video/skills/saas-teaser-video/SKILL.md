@@ -96,7 +96,7 @@ Question bank (pick only what research couldn't answer). For style questions, al
 - **Color mode:** light brand bg throughout / dark throughout / mixed with ContrastFlip punch scenes (*mixed = strongest retention, default for upbeat+reel*)?
 - **UI proof** (always ask when both screenshots AND frontend code exist — never silently default):
   - `images only` — real screenshots in framed panels. *Authentic, fast, but static: UI can only pan/zoom as a picture; baked-in text untouchable.*
-  - `code only` — rebuild the real components in JSX from the frontend repo (grep the actual markup, simplify, use theme tokens). *Razor sharp at any zoom, per-element animation — table rows cascade in on beats, counters tick up, buttons "click". Feels like watching the product work. Slower to build.*
+  - `code only` — rebuild the real components in JSX from the frontend repo (extraction + animation recipes: `references/code-to-ui.md`). *Razor sharp at any zoom, per-element animation — table rows cascade in on beats, counters tick up, buttons "click". Feels like watching the product work. Slower to build.*
   - `both` — screenshots for wide establishing panels, JSX rebuilds for the 1-2 scenes where elements should animate individually (dashboard, hero input). *Best result-per-effort; recommended default when code is available.*
   - (no code and no screenshots → type-only beats, calm brand-film style)
 - **Assets:** frontend code repo? media kit (logo SVG, brand palette, fonts)? real UI screenshots? (skip if already answered in Phase 1 source ask)
@@ -140,7 +140,7 @@ Don't debug a failed render before confirming preflight passed.
 
 **Scaffold from `templates/` — don't retype boilerplate.** The skill ships battle-tested files: copy `templates/package.json`, `tsconfig.json`, `remotion.config.ts` to the project root; `templates/index.ts`, `Root.tsx` to `src/`; `templates/theme.ts` to `src/`; `templates/lib.tsx` to `src/scenes/`. Then: fill every `#TODO_*` token in theme.ts from brand.json (grep for TODO — none may survive), swap the font import if the brand font isn't Inter, and set `durationInFrames` in Root.tsx to the computed net total. Only scene components and Teaser.tsx are written fresh per project — they're the creative part; the rest is plumbing.
 
-Full code patterns, spring presets, and font loading in `references/remotion-patterns.md`. Motion technique recipes in `references/motion-library.md`. Read both before writing components. Non-negotiables:
+Full code patterns, spring presets, and font loading in `references/remotion-patterns.md`. Motion technique recipes in `references/motion-library.md`. If UI-proof mode is `code only` or `both`, also read `references/code-to-ui.md` — never import app components directly; extract markup/microcopy/tokens and rebuild simplified with per-element animation. Non-negotiables:
 
 - **Load fonts with `@remotion/google-fonts`** (`loadFont()`), never a bare `fontFamily` string — unloaded fonts silently render as system serif in the output file.
 - **Frame-based animation only** — `useCurrentFrame()` + `spring()`/`interpolate()`. CSS `transition`/`animation` and `setTimeout` produce broken or nondeterministic renders.
