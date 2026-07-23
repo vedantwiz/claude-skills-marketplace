@@ -1,0 +1,19 @@
+{
+  "name": "bhargav-skills",
+  "owner": {
+    "name": "Bhargav",
+    "email": "bhargav.jsv@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "saas-teaser-video",
+      "source": "./plugins/saas-teaser-video",
+      "description": "Research-driven SaaS teaser videos with Remotion — brand extraction from site/code/media kit, reference-video analysis, reel-paced motion, self-improving via per-user learnings log.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Bhargav"
+      },
+      "keywords": ["remotion", "video", "teaser", "saas", "motion-graphics", "marketing"]
+    }
+  ]
+}
