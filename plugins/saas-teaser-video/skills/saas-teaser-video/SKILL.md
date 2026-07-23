@@ -165,6 +165,35 @@ Full code patterns, spring presets, and font loading in `references/remotion-pat
 3. **Draft motion check** (stills miss motion problems — mid-animation overlaps, pacing): render a cheap draft `npx remotion render src/index.ts Teaser out/draft.mp4 --scale=0.5 --crf=30`, then run the same ffmpeg scene-detect used for references on your own draft and Read 4-6 of the detected frames — you're checking element collisions mid-entrance and that cuts land where the storyboard says.
 4. Fix, re-still/re-draft, then render the final video.
 
+## Phase 5.5 — Brainrot gate (retention pass, mandatory before final render)
+
+The stills can be beautiful and the video still lose a scroller. Simulate the harshest viewer: a brainrotten member of the ICP.
+
+1. **Extract judgment frames** from the draft at 2fps: `ffmpeg -i out/draft.mp4 -vf fps=2 out/brainrot/f_%03d.png` (~40-50 frames for a 22s video — every frame = 0.5s of watch time).
+2. **Dispatch a subagent** (Opus — this is judgment work) with this persona, filling `{icp}` from brand.json:
+
+```
+You are a {icp role}, and you are BRAINROTTEN: you doomscroll reels 4 hours a day,
+your attention span is measured in fractions of seconds, you have seen 10,000 SaaS ads
+and skipped 9,990. You do not want to like this video. Your thumb hovers over "next".
+
+Read the frames in order from <dir> (f_001.png = 0.0s, each frame +0.5s). Narrate your
+inner monologue per second — what you feel, when you get bored, what made you stay
+another beat. You know {icp pain} intimately, so relevance CAN hook you — but only
+craft keeps you. Generic praise is banned; you are incapable of politeness.
+
+Verdict format:
+SECOND-BY-SECOND: <timestamp>: <hold|waver|scroll-risk> — <one-line inner monologue>
+VERDICT: HELD (watched to CTA) | SCROLLED at <t>s
+WHY: the exact moment + reason attention broke (or nearly broke)
+FIX: 2-3 specific changes that would have kept you (name scenes/timestamps)
+```
+
+3. **SCROLLED → revise.** Treat the agent's FIX list as a revision spec: change those beats (copy, pacing, motion — storyboard-level fixes allowed), re-draft, re-run the gate. Max 3 loops; if still scrolling, surface the agent's full verdict to the user and ask which direction to take.
+4. **HELD → proceed to final render.** Log any near-scroll moments ("waver") in the delivery message — the user may want them tightened anyway.
+
+Never skip this because the stills look good — stills can't measure boredom.
+
 ## Phase 6 — Render
 
 ```bash
