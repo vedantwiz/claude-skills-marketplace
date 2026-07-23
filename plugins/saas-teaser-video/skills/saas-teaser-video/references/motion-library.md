@@ -93,6 +93,18 @@ const shown = Math.min(len, Math.floor((frame - start) * charsPerFrame));
 ### CutOnAction
 **Job:** hard cut lands while something is mid-motion — momentum carries across the cut. Prefer hard cuts at reel energy; save fades for the CTA only.
 
+### MetaphorProp
+**Job:** the product's promise verb made physical — a small object acts out the value prop on the payoff word (fix → bandage slap, secure → padlock snap, track → pin drop, connect → links click). The one moment that feels authored, not templated.
+**Energy:** any. **Timing:** slap/snap entrance with hard overshoot `{damping: 15, stiffness: 220}` scale 2.4→1 + rotation settle (−28°→−10°), lands 6-10 frames after its word finishes popping.
+**Rules:** ONE per video · drawn in JSX with realistic muted colors (a bandage is tan, not brand-orange) · small — decorates the word, never covers copy (≈ 0.4× the word's width) · skip entirely if the promise has no physical verb.
+```tsx
+// anchored inside the word's relative wrapper
+<span style={{ position: "relative" }}>
+  <WordPop text="links." delay={32} />
+  <Prop delay={40} />   // absolute, left ~52%, top ~74%, rotate -10, slap spring
+</span>
+```
+
 ## Secondary motion (promoted rule — upbeat & reel)
 
 Entrances alone read as slideware. Once an element has LANDED it must keep living:

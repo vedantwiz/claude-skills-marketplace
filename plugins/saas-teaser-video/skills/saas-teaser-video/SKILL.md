@@ -127,6 +127,8 @@ Example math: 90+90+90+105+105+90+105 = 675; minus 6 transitions × 10 = **615 n
 
 Copy rules: headlines ≤ 6 words. One idea per scene. No paragraph text ever. Copy formulas per scene type: `references/scene-library.md`.
 
+**The metaphor prop (always look for one).** Find the product's core promise VERB and turn it into one small physical object that acts it out — a literal gag the viewer feels before they think. Fix → a small bandage slaps onto the payoff word. Speed → a stopwatch clicks. Secure → a padlock snaps shut. Organize → a folder swallows loose items. Connect → two chain links click together. Track → a map pin drops. Grow → a sprout pushes up from the baseline. Rules: ONE prop per video, drawn in JSX (realistic muted colors, not brand-orange clip-art), SMALL — it decorates the word, never covers the copy, placed at a payoff moment (CTA line or punch scene). If the promise has no obvious physical verb, skip it — a forced metaphor is worse than none. This is what makes the ending feel authored instead of templated.
+
 **Spec motion by name.** Every storyboard row lists its techniques from `references/motion-library.md` (e.g. "Scene 3 Reveal — BurstRing ×2 + Pop headline + Rise sub, DriftZoom 1.07"). Build phase translates names to code mechanically — improvised motion at build time is a red flag. If music/beat grid exists, scene durations must be multiples of the grid spacing.
 
 ## Phase 4 — Build (Remotion)
