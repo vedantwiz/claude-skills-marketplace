@@ -195,7 +195,49 @@ const w = interpolate(frame, [10, 35], [0, 160], {
 // <Audio src={staticFile('music.mp3')} volume={0.8} />   // drop music.mp3 in public/ to enable
 ```
 
-Tell the user: add a ~120 BPM minimal electronic track to `public/music.mp3` and uncomment. Don't fetch or generate music.
+Tell the user: add a track to `public/music.mp3` and uncomment. Don't fetch or generate music.
+
+## Beat-sync — cuts land on beats
+
+```
+framesPerBeat = fps * 60 / BPM        // 30fps @ 120BPM = 15 frames/beat
+```
+
+Detect BPM of a supplied track if unknown (ffmpeg installed already):
+```bash
+ffmpeg -i public/music.mp3 -filter:a ebur128 -f null - 2>&1 | tail -5   # rough check only
+# better: ask the user, or use genre default (electronic 120, pop 128, cinematic 90, lo-fi 80)
+```
+
+**Grid spacing — the smart-sync rule.** Don't cut on every beat unless energy allows it:
+
+```
+minScene = energy minimum scene length (calm 90, upbeat 75, reel 40)
+N        = ceil(minScene / framesPerBeat)      // beats to skip between cuts
+grid     = N * framesPerBeat                    // every scene duration = multiple of grid
+```
+
+Example: calm video (min 90f) + 128BPM track (14.06 f/beat) → N=7 → grid ≈ 98f — cuts every 7th beat, still ON a beat. Reel video (min 40f) + 80BPM lo-fi (22.5 f/beat) → N=2 → grid 45f; if that still drags, subdivide: use half-beats (framesPerBeat/2) as the base unit instead.
+
+Round framesPerBeat to nearest integer per cut and carry the rounding error forward (don't let drift accumulate past ±2 frames over the video — recompute each cut as `Math.round(k * framesPerBeat)` from the origin, not additively).
+
+Genre also shapes the visuals, not just timing: cinematic → longer holds, DriftZoom, fades; electronic → ContrastFlips, WordSlam, hard cuts; pop → WordPop, DotBurst, bright scenes; lo-fi → Rise entrances, soft glow, no slams.
+
+## brand.json — research cache
+
+After Phase 1, write everything extracted to `brand.json` in the project root:
+
+```json
+{
+  "product": "…", "oneLiner": "…", "icp": "…",
+  "tokens": { "bg": "#…", "text": "#…", "accent": "#…", "accentSoft": "#…", "surface": "#…", "font": "Inter" },
+  "copy": { "hook": "…", "valueProps": ["…"], "cta": "…" },
+  "assets": { "logo": "path", "logoIcon": "path", "screenshots": ["path"] },
+  "energy": "upbeat", "music": { "source": "genre|file", "bpm": 120, "grid": 60 }
+}
+```
+
+On ANY run, check for `brand.json` before researching — if present and the user hasn't pointed at new sources, skip Phase 1 entirely (huge win for 9:16 variants and revision runs).
 
 ## UI mockups for feature scenes
 

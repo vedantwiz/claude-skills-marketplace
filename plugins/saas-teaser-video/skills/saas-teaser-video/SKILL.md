@@ -27,6 +27,8 @@ If working inline (no subagents), the same order holds: finish the entire creati
 
 Never invent brand facts. Extract them.
 
+**Zeroth: check for `brand.json`** in the working folder — a previous run's research cache (schema in `references/remotion-patterns.md`). If present and the user hasn't pointed at new sources, load it and skip the rest of Phase 1.
+
 **First: read `references/learnings.md`** and apply every `promoted` entry as a hard rule; treat `candidate` entries as strong defaults. This is how the skill improves over time — skipping it repeats past mistakes.
 
 **Then: ask what source material exists** (interactive runs only — batch this with any Phase 2.5 questions if you prefer one round, but ask BEFORE fetching the site so you research the best source, not the first one):
@@ -69,10 +71,13 @@ Hook:         <the one sentence that makes the ICP stop scrolling>
 Value props:  <max 3>
 Brand tokens: bg #..., text #..., accent #..., font <name>
 Tone:         <e.g. "dark, engineered, confident — no hype">
+Energy:       calm | upbeat | reel  (from questionnaire — drives pacing, springs, effects)
 Format:       1920x1080 @30fps (default; 1080x1920 if user wants Shorts/Reels)
 Duration:     20–25s → net 600–750 frames AFTER transition overlaps
-Music:        none by default — leave a commented <Audio> slot, tell user where to drop an .mp3
+Music:        <file+BPM | genre+assumed BPM | none> → beat grid: <N> frames/cut (see beat-sync)
 ```
+
+After research, cache everything extracted into `brand.json` in the project root (tokens, copy lines, ICP, asset paths, energy, beat grid). Re-runs and format variants (9:16) read the cache and skip research entirely — check for `brand.json` FIRST on any run.
 
 Defaults when user is silent: 16:9, 30fps, ~25s, no music. State the defaults; don't block on questions.
 
@@ -80,12 +85,23 @@ Defaults when user is silent: 16:9, 30fps, ~25s, no music. State the defaults; d
 
 After drafting the brief, before the storyboard: list unknowns that would actually change the video. If none — proceed on defaults. If some — ask **once, batched** (use AskUserQuestion when interactive; no cap on question count — one round of friction is fine when it buys a better video; AskUserQuestion takes 4 per call, so chain calls in the same round if you have more), then freeze answers into the brief.
 
-Question bank (pick only what research couldn't answer):
+Question bank (pick only what research couldn't answer). For style questions, always show the CONSEQUENCE in the option description — the user is choosing an outcome, not a label:
+
 - **Channel:** landing-page hero (16:9) vs Reels/Shorts (9:16) vs both?
-- **Assets:** frontend code repo? media kit (logo SVG, brand palette, fonts)? real UI screenshots? — or rebuild mockups in JSX? (skip if already answered in Phase 1 source ask)
+- **Energy** (always ask unless user already said): how should it feel?
+  - `calm` — Apple keynote. 90-frame scenes, fades, Rise entrances, zero overshoot. *Example: headline fades up, holds 2.5s, cross-fades to next.*
+  - `upbeat` — product launch. 75-frame scenes, WordPop cascades, SlideOvershoot panels, 2-3 effect moments. *Example: headline pops in word by word, panel punches in from the right, chips float around it.*
+  - `reel` — scroll-stopper. 40-60-frame beats, WordSlam cold open, ContrastFlips, hard cuts, effect moment every scene. *Example: four full-screen words slam in 2 seconds with bg flipping black/white, payoff word explodes with rings.*
+- **Density:** minimal (3-4 scenes, one message, more air — *viewer remembers ONE thing*) vs standard (7-10 beats — *full pain→proof→CTA arc*)?
+- **Color mode:** light brand bg throughout / dark throughout / mixed with ContrastFlip punch scenes (*mixed = strongest retention, default for upbeat+reel*)?
+- **UI proof:** real screenshots in framed panels (*authentic, needs good captures*) / rebuilt JSX mockups (*razor sharp, controllable, slower to build*) / type-only (*fastest, most abstract — calm brand films*)?
+- **Assets:** frontend code repo? media kit (logo SVG, brand palette, fonts)? real UI screenshots? (skip if already answered in Phase 1 source ask)
 - **References:** teaser/ad videos to emulate (local or YouTube, multiple fine)? → run Phase 1 reference-analysis pipeline before storyboard (skip if already answered in Phase 1 source ask)
 - **Emphasis:** which ONE feature must survive the cut, if research surfaced more than 3?
-- **Music:** provide an .mp3, or ship silent with a commented slot?
+- **Music (always ask, two-step):**
+  1. "Do you have a track (.mp3) to use?" If yes → get path + BPM if known (else detect: see beat-sync in `remotion-patterns.md`).
+  2. If no → "What kind of music will you add later?" (minimal electronic ~120BPM / upbeat pop ~128BPM / cinematic ~90BPM / lo-fi ~80BPM / none-ever). Even without a file, the genre's BPM sets the beat grid the cuts snap to — so when they drop the track in later, cuts already land on beats. `none-ever` → skip beat grid.
+  - **Smart sync rule:** never force visuals to match raw tempo. If music is faster than the chosen energy (e.g. calm video + 128BPM), cut on every 2nd/4th beat (downbeats) — grid spacing = smallest multiple of frames-per-beat ≥ the energy's minimum scene length. If energy is faster than the music, subdivide (cut on half-beats). Genre also nudges visuals: cinematic → longer holds + DriftZoom; electronic → ContrastFlips + WordSlam; lo-fi → soft fades, no slams. Mismatch example: user picks calm + fast electro → keep calm scene lengths but snap every cut to a downbeat, so it feels intentional, not slow.
 - **Occasion:** Product Hunt launch / GA / funding? (changes CTA copy)
 
 Rules: never ask what the site or code already answered; never ask taste questions ("what colors do you like?" — that's your job, extract from brand); if the user is unreachable or the run is autonomous, apply defaults and list every assumption in the delivery message. One round of questions max — don't re-open after storyboard freeze.
@@ -107,6 +123,8 @@ Example math: 90+90+90+105+105+90+105 = 675; minus 6 transitions × 10 = **615 n
 
 Copy rules: headlines ≤ 6 words. One idea per scene. No paragraph text ever. Copy formulas per scene type: `references/scene-library.md`.
 
+**Spec motion by name.** Every storyboard row lists its techniques from `references/motion-library.md` (e.g. "Scene 3 Reveal — BurstRing ×2 + Pop headline + Rise sub, DriftZoom 1.07"). Build phase translates names to code mechanically — improvised motion at build time is a red flag. If music/beat grid exists, scene durations must be multiples of the grid spacing.
+
 ## Phase 4 — Build (Remotion)
 
 **Preflight first — check deps, install what's missing** (exact commands in `references/remotion-patterns.md`):
@@ -116,7 +134,7 @@ Copy rules: headlines ≤ 6 words. One idea per scene. No paragraph text ever. C
 
 Don't debug a failed render before confirming preflight passed.
 
-Full scaffold, code patterns, spring presets, and font loading in `references/remotion-patterns.md`. Read it before writing components. Non-negotiables:
+Full scaffold, code patterns, spring presets, and font loading in `references/remotion-patterns.md`. Motion technique recipes in `references/motion-library.md`. Read both before writing components. Non-negotiables:
 
 - **Load fonts with `@remotion/google-fonts`** (`loadFont()`), never a bare `fontFamily` string — unloaded fonts silently render as system serif in the output file.
 - **Frame-based animation only** — `useCurrentFrame()` + `spring()`/`interpolate()`. CSS `transition`/`animation` and `setTimeout` produce broken or nondeterministic renders.
@@ -138,7 +156,8 @@ Full scaffold, code patterns, spring presets, and font loading in `references/re
 
 1. `npx remotion studio` for interactive preview (`preview` command is deprecated).
 2. Render a still at each scene's midpoint: `npx remotion still src/index.ts Teaser out/s1.png --frame=<n>` — then **Read the PNGs** and check: correct font actually rendered (not serif fallback), text inside safe margins, brand colors right, nothing clipped.
-3. Fix, re-still, then render the video.
+3. **Draft motion check** (stills miss motion problems — mid-animation overlaps, pacing): render a cheap draft `npx remotion render src/index.ts Teaser out/draft.mp4 --scale=0.5 --crf=30`, then run the same ffmpeg scene-detect used for references on your own draft and Read 4-6 of the detected frames — you're checking element collisions mid-entrance and that cuts land where the storyboard says.
+4. Fix, re-still/re-draft, then render the final video.
 
 ## Phase 6 — Render
 
