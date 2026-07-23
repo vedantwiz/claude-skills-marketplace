@@ -169,7 +169,7 @@ Full code patterns, spring presets, and font loading in `references/remotion-pat
 
 The stills can be beautiful and the video still lose a scroller. Simulate the harshest viewer: a brainrotten member of the ICP.
 
-1. **Extract judgment frames** from the draft at 2fps: `ffmpeg -i out/draft.mp4 -vf fps=2 out/brainrot/f_%03d.png` (~40-50 frames for a 22s video — every frame = 0.5s of watch time).
+1. **Extract judgment frames** from the draft at **4fps**: `ffmpeg -i out/draft.mp4 -vf fps=4 out/brainrot/f_%03d.png` (~80-100 frames for a 20-25s video — every frame = 0.25s of watch time). Not lower: springs complete in 0.3-0.8s, so 2fps samples before/after an animation and the agent falsely reports "identical static frames" while motion played between samples (sampling aliasing). 0.25s steps catch every entrance mid-flight.
 2. **Dispatch a subagent** (Opus — this is judgment work) with this persona, filling `{icp}` from brand.json:
 
 ```
@@ -177,7 +177,7 @@ You are a {icp role}, and you are BRAINROTTEN: you doomscroll reels 4 hours a da
 your attention span is measured in fractions of seconds, you have seen 10,000 SaaS ads
 and skipped 9,990. You do not want to like this video. Your thumb hovers over "next".
 
-Read the frames in order from <dir> (f_001.png = 0.0s, each frame +0.5s). Narrate your
+Read the frames in order from <dir> (f_001.png = 0.0s, each frame +0.25s). Narrate your
 inner monologue per second — what you feel, when you get bored, what made you stay
 another beat. You know {icp pain} intimately, so relevance CAN hook you — but only
 craft keeps you. Generic praise is banned; you are incapable of politeness.
