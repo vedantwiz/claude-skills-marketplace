@@ -202,6 +202,17 @@ npx remotion render src/index.ts Teaser out/teaser.mp4 --codec=h264 --crf=18 --p
 
 Deliver path + one-line summary of specs. Offer a 9:16 variant as follow-up.
 
+## Feedback interpretation — broad means BOLD
+
+When revision feedback is **broad** ("more animations", "make it pop", "too boring", "needs energy"), the user is rejecting the current approach, not requesting a percentage tweak. Respond with STRUCTURAL swings — flip the script within the video's brand context:
+
+- New scene concepts (chaos-wall marquee instead of chips, zoom-through camera pullback instead of slide-in)
+- Words that DO what they say (a "broken." that shatters apart, oversized type clipped by the frame edges)
+- Camera moves (zoom-throughs, 3D perspective drops), transition inventions (an underline that grows into a full-screen wipe)
+- One deliberate rule-break per round (a full-bleed accent scene, an oversized edge-to-edge word) — going wild means the banned-list is negotiable, brand tokens are not
+
+NEVER answer broad feedback with parameter nudges (frame counts, spring configs, "underline draws faster") — if the user wanted subtle they'd name the element. **Specific feedback = surgical change to exactly that element. Broad feedback = rethink scenes.** State the swings you took in the delivery message so the user can dial back what overshoots.
+
 ## Phase 7 — Learn (self-improvement loop)
 
 Whenever the user gives feedback on a delivered video — revision requests, "too slow", "love the ending", changed copy, anything — distill it and append an entry to `references/learnings.md` (format + dedupe rules are in that file). Generalizable lessons only; one-off brand tweaks don't qualify. When the same lesson shows up a second time, promote it: set `Status: promoted` AND edit the matching rule in SKILL.md / scene-library / patterns so the main flow carries it permanently. Silence from the user = no entry; don't invent learnings.
