@@ -1,12 +1,12 @@
-# bhargav-skills — Claude Code plugin marketplace
+# vedant-skills — Claude Code plugin marketplace
 
-Claude Code skills by Bhargav.
+Claude Code skills by Vedant.
 
 ## Install
 
 ```
-/plugin marketplace add <YOUR_GITHUB_USERNAME>/claude-skills-marketplace
-/plugin install saas-teaser-video@bhargav-skills
+/plugin marketplace add vedantwiz/claude-skills-marketplace
+/plugin install saas-teaser-video@vedant-skills
 ```
 
 ## Plugins

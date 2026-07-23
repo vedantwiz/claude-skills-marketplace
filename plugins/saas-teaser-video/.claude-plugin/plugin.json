@@ -3,8 +3,7 @@
   "description": "Make 20-25s Apple-like SaaS teaser videos with Remotion. Pipeline: research (site/code/media kit) → creative brief → storyboard → build → verify stills → render. Analyzes reference videos via ffmpeg scene detection. Learns from your feedback run over run.",
   "version": "1.0.0",
   "author": {
-    "name": "Bhargav",
-    "email": "bhargav.jsv@gmail.com"
+    "name": "Vedant"
   },
   "keywords": ["remotion", "video", "teaser", "saas", "motion-graphics"]
 }
