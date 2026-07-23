@@ -94,7 +94,11 @@ Question bank (pick only what research couldn't answer). For style questions, al
   - `reel` — scroll-stopper. 40-60-frame beats, WordSlam cold open, ContrastFlips, hard cuts, effect moment every scene. *Example: four full-screen words slam in 2 seconds with bg flipping black/white, payoff word explodes with rings.*
 - **Density:** minimal (3-4 scenes, one message, more air — *viewer remembers ONE thing*) vs standard (7-10 beats — *full pain→proof→CTA arc*)?
 - **Color mode:** light brand bg throughout / dark throughout / mixed with ContrastFlip punch scenes (*mixed = strongest retention, default for upbeat+reel*)?
-- **UI proof:** real screenshots in framed panels (*authentic, needs good captures*) / rebuilt JSX mockups (*razor sharp, controllable, slower to build*) / type-only (*fastest, most abstract — calm brand films*)?
+- **UI proof** (always ask when both screenshots AND frontend code exist — never silently default):
+  - `images only` — real screenshots in framed panels. *Authentic, fast, but static: UI can only pan/zoom as a picture; baked-in text untouchable.*
+  - `code only` — rebuild the real components in JSX from the frontend repo (grep the actual markup, simplify, use theme tokens). *Razor sharp at any zoom, per-element animation — table rows cascade in on beats, counters tick up, buttons "click". Feels like watching the product work. Slower to build.*
+  - `both` — screenshots for wide establishing panels, JSX rebuilds for the 1-2 scenes where elements should animate individually (dashboard, hero input). *Best result-per-effort; recommended default when code is available.*
+  - (no code and no screenshots → type-only beats, calm brand-film style)
 - **Assets:** frontend code repo? media kit (logo SVG, brand palette, fonts)? real UI screenshots? (skip if already answered in Phase 1 source ask)
 - **References:** teaser/ad videos to emulate (local or YouTube, multiple fine)? → run Phase 1 reference-analysis pipeline before storyboard (skip if already answered in Phase 1 source ask)
 - **Emphasis:** which ONE feature must survive the cut, if research surfaced more than 3?
